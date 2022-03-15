@@ -1,0 +1,737 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  <title>Information Templates</title>
+  <style type="text/css">
+    body {
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  color: #222;
+  font-size: 100%;
+}
+
+.slide {
+  position: absolute;
+  top: 0; bottom: 0;
+  left: 0; right: 0;
+  background-color: #f7f7f7;
+}
+
+.slide-content {
+  width: 800px;
+  height: 600px;
+  overflow: hidden;
+  margin: 80px auto 0 auto;
+  padding: 30px;
+
+  font-weight: 200;
+  font-size: 200%;
+  line-height: 1.375;
+}
+
+.controls {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+}
+
+.arrow {
+  width: 0; height: 0;
+  border: 30px solid #333;
+  float: left;
+  margin-right: 30px;
+
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.prev {
+  border-top-color: transparent;
+  border-bottom-color: transparent;
+  border-left-color: transparent;
+
+  border-left-width: 0;
+  border-right-width: 50px;
+}
+
+.next {
+  border-top-color: transparent;
+  border-bottom-color: transparent;
+  border-right-color: transparent;
+
+  border-left-width: 50px;
+  border-right-width: 0;
+}
+
+.prev:hover {
+  border-right-color: #888;
+  cursor: pointer;
+}
+
+.next:hover {
+  border-left-color: #888;
+  cursor: pointer;
+}
+
+h1 {
+  font-size: 300%;
+  line-height: 1.2;
+  text-align: center;
+  margin: 170px 0 0;
+}
+
+h2 {
+  font-size: 100%;
+  line-height: 1.2;
+  margin: 5px 0;
+  text-align: center;
+  font-weight: 200;
+}
+
+h3 {
+  font-size: 140%;
+  line-height: 1.2;
+  border-bottom: 1px solid #aaa;
+  margin: 0;
+  padding-bottom: 15px;
+}
+
+ul {
+  padding: 20px 0 0 60px;
+  font-weight: 200;
+  line-height: 1.375;
+}
+
+.author h1 {
+  font-size: 170%;
+  font-weight: 200;
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.author h3 {
+  font-weight: 100;
+  text-align: center;
+  font-size: 95%;
+  border: none;
+}
+
+a {
+  text-decoration: none;
+  color: #44a4dd;
+}
+
+a:hover {
+  color: #66b5ff;
+}
+
+pre {
+  font-size: 60%;
+  line-height: 1.3;
+}
+
+.progress {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  z-index: 1;
+}
+
+.progress-bar {
+  width: 0%;
+  height: 3px;
+  background-color: #b4b4b4;
+
+  -webkit-transition: width 0.05s ease-out;
+  -moz-transition: width 0.05s ease-out;
+  -o-transition: width 0.05s ease-out;
+  transition: width 0.05s ease-out;
+}
+
+.hidden {
+  display: none;
+}
+
+@media (max-width: 850px) {
+
+  body {
+    font-size: 70%;
+  }
+
+  .slide-content {
+    width: auto;
+  }
+
+  img {
+    width: 100%;
+  }
+
+  h1 {
+    margin-top: 120px;
+  }
+
+  .prev, .prev:hover {
+    border-right-color: rgba(135, 135, 135, 0.5);
+  }
+
+  .next, .next:hover {
+    border-left-color: rgba(135, 135, 135, 0.5);
+  }
+}
+
+@media (max-width: 480px) {
+  body {
+    font-size: 50%;
+    overflow: hidden;
+  }
+
+  .slide-content {
+    padding: 10px;
+    margin-top: 10px;
+    height: 340px;
+  }
+
+  h1 {
+    margin-top: 50px;
+  }
+
+  ul {
+    padding-left: 25px;
+  }
+}
+
+@media print {
+  * {
+    -webkit-print-color-adjust: exact;
+  }
+
+  @page {
+    size: letter;
+  }
+
+  .hidden {
+    display: inline;
+  }
+
+  html {
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+  }
+
+  body {
+    margin: 0 auto !important;
+    border: 0;
+    padding: 0;
+    float: none !important;
+    overflow: visible;
+    background: none !important;
+    font-size: 52%;
+  }
+
+  .progress, .controls {
+    display: none;
+  }
+
+  .slide {
+    position: static;
+  }
+
+  .slide-content {
+    border: 1px solid #222;
+    margin-top: 0;
+    margin-bottom: 40px;
+    height: 3.5in;
+    overflow: visible;
+  }
+
+  .slide:nth-child(even) {
+    /* 2 slides per page */
+    page-break-before: always;
+  }
+}
+
+/*
+
+github.com style (c) Vasily Polovnyov <vast@whiteants.net>
+
+*/
+
+.hljs {
+  display: block;
+  overflow-x: auto;
+  padding: 0.5em;
+  color: #333;
+  background: #f8f8f8;
+}
+
+.hljs-comment,
+.hljs-quote {
+  color: #998;
+  font-style: italic;
+}
+
+.hljs-keyword,
+.hljs-selector-tag,
+.hljs-subst {
+  color: #333;
+  font-weight: bold;
+}
+
+.hljs-number,
+.hljs-literal,
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag .hljs-attr {
+  color: #008080;
+}
+
+.hljs-string,
+.hljs-doctag {
+  color: #d14;
+}
+
+.hljs-title,
+.hljs-section,
+.hljs-selector-id {
+  color: #900;
+  font-weight: bold;
+}
+
+.hljs-subst {
+  font-weight: normal;
+}
+
+.hljs-type,
+.hljs-class .hljs-title {
+  color: #458;
+  font-weight: bold;
+}
+
+.hljs-tag,
+.hljs-name,
+.hljs-attribute {
+  color: #000080;
+  font-weight: normal;
+}
+
+.hljs-regexp,
+.hljs-link {
+  color: #009926;
+}
+
+.hljs-symbol,
+.hljs-bullet {
+  color: #990073;
+}
+
+.hljs-built_in,
+.hljs-builtin-name {
+  color: #0086b3;
+}
+
+.hljs-meta {
+  color: #999;
+  font-weight: bold;
+}
+
+.hljs-deletion {
+  background: #fdd;
+}
+
+.hljs-addition {
+  background: #dfd;
+}
+
+.hljs-emphasis {
+  font-style: italic;
+}
+
+.hljs-strong {
+  font-weight: bold;
+}
+
+
+  </style>
+    <script async src="http://localhost:35729/livereload.js"></script>
+</head>
+<body>
+    <div class="progress">
+    <div class="progress-bar"></div>
+  </div>
+
+  <div class="slide" id="slide-1">
+    <section class="slide-content"><h1 id="exploit-the-power-of-templates-for-all-types-of-content">Exploit the power of templates for all types of content</h1>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-2">
+    <section class="slide-content"><h3 id="information-templates">Information Templates</h3>
+<ul>
+<li>Definition</li>
+<li>Purpose and advantages</li>
+<li>Supported entity types</li>
+<li>How to use them</li>
+<li>How to add support for a custom entity type</li>
+</ul>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-3">
+    <section class="slide-content"><h3 id="what-are-information-templates">What are Information Templates</h3>
+<ul>
+<li><strong>Freemarker</strong> templates</li>
+<li>Allow <strong>displaying any entity of a certain type</strong> in a specific way</li>
+<li>An entity type can have <strong>multiple</strong> Information Templates</li>
+<li>Has access to same <strong>fields</strong> available for mapping on page editor</li>
+</ul>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-4">
+    <section class="slide-content"><h3 id="information-template-for-category">Information Template for Category</h3>
+<p><img 
+  src="./images/information-template-category.png"
+  alt="Information Template Item Type" 
+  style="margin-left:auto;margin-right:auto;display:block;max-height:470px;max-width:800px;height:auto;width:auto;" /></p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-5">
+    <section class="slide-content"><h3 id="information-template-used-on-page">Information Template used on Page</h3>
+<p><img 
+  src="./images/information-template-category-used.png"
+  alt="Information Template Item Type" 
+  style="margin-left:auto;margin-right:auto;display:block;max-height:470px;max-width:800px;height:auto;width:auto;" /></p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-6">
+    <section class="slide-content"><h3 id="what-is-their-purpose">What is their purpose</h3>
+<p><strong>Centralize</strong> the way of <strong>visualizing entities of a certain type</strong> in a <strong>reusable</strong> and <strong>easy to modify</strong> manner</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-7">
+    <section class="slide-content"><h3 id="display-page-template-vs-information-template">Display Page Template vs Information Template</h3>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-8">
+    <section class="slide-content"><h3 id="advantages-of-information-templates">Advantages of Information Templates</h3>
+<ul>
+<li><strong>Ease of use</strong>:<br><strong>Selecting a template</strong> (instead of mapping multiple elements in a fragment to the fields of an entity)<br>→ <strong>minimizes errors</strong></li>
+<li><strong>Ease of change</strong>:<br>Performing <strong>changes only once</strong> (in the Information Template instead of across pages)<br>→ <strong>saves time and effort</strong></li>
+</ul>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-9">
+    <section class="slide-content"><h3 id="entities-supporting-information-templates-out-of-the-box">Entities supporting Information Templates Out of the Box</h3>
+<p><img 
+  src="./images/information-template-item-type.png"
+  alt="Information Template Item Type" 
+  style="margin-left:auto;margin-right:auto;display:block;max-height:470px;max-width:800px;height:auto;width:auto;" /></p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-10">
+    <section class="slide-content"><h3 id="how-to-create-an-information-template">How to create an Information Template</h3>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-11">
+    <section class="slide-content"><h3 id="how-to-apply-an-information-template-in-the-page-editor">How to apply an Information Template in the Page Editor</h3>
+<ul>
+<li><strong>Mapping</strong> it to a <strong>text or rich text editable element of a fragment</strong></li>
+<li>Through <strong>Content Display Fragment</strong></li>
+<li>Within a <strong>Collection Display Fragment</strong></li>
+<li>Within a <strong>Display Page Template</strong></li>
+</ul>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-12">
+    <section class="slide-content"><h3 id="what-advantage-do-information-templates-offer-revisit-2-min-">What advantage do Information Templates offer (revisit) (2 min)</h3>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-13">
+    <section class="slide-content"><h3 id="how-can-i-make-my-custom-entity-support-information-templates">How can I make my custom entity support Information Templates</h3>
+<p>1) Implement <strong>InfoItemDetailsProvider</strong><br>2) Implement <strong>InfoItemCapabilitiesProvider</strong><br>3) Add InfoFieldSet to InfoForm in <strong>InfoItemFormProvider</strong><br>4) Add InfoFieldValue to InfoItemFieldValues in <strong>InfoItemFieldValuesProvider</strong></p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-14">
+    <section class="slide-content"><h3 id="1-implement-infoitemdetailsprovider">1) Implement InfoItemDetailsProvider</h3>
+<pre><code class="lang-java"><span class="hljs-meta">@Component</span>(immediate = <span class="hljs-keyword">true</span>, service = InfoItemDetailsProvider.class)
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyEntityInfoItemDetailsProvider</span>
+    <span class="hljs-keyword">implements</span> <span class="hljs-title">InfoItemDetailsProvider</span>&lt;<span class="hljs-title">MyEntity</span>&gt; </span>{
+
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> InfoItemClassDetails <span class="hljs-title">getInfoItemClassDetails</span><span class="hljs-params">()</span> </span>{
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> InfoItemClassDetails(MyEntity.class.getName());
+    }
+
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> InfoItemDetails <span class="hljs-title">getInfoItemDetails</span><span class="hljs-params">(MyEntity player)</span> </span>{
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> InfoItemDetails(
+            getInfoItemClassDetails(),
+            <span class="hljs-keyword">new</span> InfoItemReference(MyEntity.class.getName(), myEntity.getId()));
+    }
+}
+</code></pre>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-15">
+    <section class="slide-content"><h3 id="2-implement-infoitemcapabilitiesprovider">2) Implement InfoItemCapabilitiesProvider</h3>
+<pre><code class="lang-java"><span class="hljs-meta">@Component</span>(service = InfoItemCapabilitiesProvider.class)
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyEntityInfoItemCapabilitiesProvider</span>
+    <span class="hljs-keyword">implements</span> <span class="hljs-title">InfoItemCapabilitiesProvider</span>&lt;<span class="hljs-title">Player</span>&gt; </span>{
+
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> List&lt;InfoItemCapability&gt; <span class="hljs-title">getInfoItemCapabilities</span><span class="hljs-params">()</span> </span>{
+        <span class="hljs-keyword">return</span> ListUtil.fromArray(_templatePageInfoItemCapability);
+    }
+
+    <span class="hljs-meta">@Reference</span>
+    <span class="hljs-keyword">private</span> TemplateInfoItemCapability _templatePageInfoItemCapability;
+}
+</code></pre>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-16">
+    <section class="slide-content"><h3 id="3-add-infofieldset-to-infoform">3) Add InfoFieldSet to InfoForm</h3>
+<pre><code class="lang-java"><span class="hljs-meta">@Component</span>(immediate = <span class="hljs-keyword">true</span>, service = InfoItemFormProvider.class)
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyEntityInfoItemFormProvider</span>
+    <span class="hljs-keyword">implements</span> <span class="hljs-title">InfoItemFormProvider</span>&lt;<span class="hljs-title">MyEntity</span>&gt; </span>{
+
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> InfoForm <span class="hljs-title">getInfoForm</span><span class="hljs-params">()</span> </span>{
+        <span class="hljs-keyword">return</span> InfoForm.builder(
+        ).infoFieldSetEntry(
+            InfoFieldSet.builder(
+            ).infoFieldSetEntry(
+                <span class="hljs-comment">// ...</span>
+            ).infoFieldSetEntry(
+                _templateInfoItemFieldSetProvider.getInfoFieldSet(
+                    MyEntity.class.getName())
+            ).labelInfoLocalizedValue(
+                InfoLocalizedValue.localize(
+                    MyEntityInfoFields.class, <span class="hljs-string">"myEntity"</span>)
+            ).build()
+        ).name(
+            <span class="hljs-string">"MyEntity"</span>
+        ).build();
+    }
+
+    <span class="hljs-meta">@Reference</span>
+    <span class="hljs-keyword">private</span> TemplateInfoItemFieldSetProvider _templateInfoItemFieldSetProvider;
+}
+</code></pre>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-17">
+    <section class="slide-content"><h3 id="4-add-infofieldvalue-to-infoitemfieldvalues">4) Add InfoFieldValue to InfoItemFieldValues</h3>
+<pre><code class="lang-java"><span class="hljs-meta">@Component</span>(immediate = <span class="hljs-keyword">true</span>, service = InfoItemFieldValuesProvider.class)
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyEntityInfoItemFieldValuesProvider</span>
+    <span class="hljs-keyword">implements</span> <span class="hljs-title">InfoItemFieldValuesProvider</span>&lt;<span class="hljs-title">MyEntity</span>&gt; </span>{
+
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> InfoItemFieldValues <span class="hljs-title">getInfoItemFieldValues</span><span class="hljs-params">(MyEntity myEntity)</span> </span>{
+        List&lt;InfoFieldValue&lt;Object&gt;&gt; infoFieldValues = <span class="hljs-keyword">new</span> ArrayList&lt;&gt;();
+        <span class="hljs-comment">// ...</span>
+        infoFieldValues.addAll(
+            _templateInfoItemFieldSetProvider.getInfoFieldValues(
+                MyEntity.class.getName(), myEntity));
+
+        <span class="hljs-keyword">return</span> InfoItemFieldValues.builder(
+        ).infoFieldValues(
+            infoFieldValues
+        ).infoItemReference(
+            <span class="hljs-keyword">new</span> InfoItemReference(MyEntity.class.getName(), myEntity.getId())
+        ).build();
+    }
+
+    <span class="hljs-meta">@Reference</span>
+    <span class="hljs-keyword">private</span> TemplateInfoItemFieldSetProvider _templateInfoItemFieldSetProvider;
+}
+</code></pre>
+</section>
+  </div>
+  <div class="slide hidden  " id="slide-18">
+    <section class="slide-content"><h3 id="summary-information-templates">Summary: Information Templates</h3>
+<ul>
+<li>Allow <strong>displaying any entity of a certain type</strong> in a specific way</li>
+<li>Offer a <strong>centralized</strong> way to visualize entities, so it can be <strong>reused</strong> and <strong>easily modified</strong>, reducing time and effort to apply changes</li>
+<li>Available <strong>out of the box</strong> for multiple entity types. Support can be added for <strong>custom entities</strong> </li>
+</ul>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-19">
+    <section class="slide-content"><h3 id="thank-you-">Thank you!</h3>
+<p><img 
+  src="./images/thank-you.png" 
+  alt="Thank you!" 
+  style="margin-left:auto;margin-right:auto;display:block;max-height:470px;max-width:800px;height:auto;width:auto;" /></p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-20">
+    <section class="slide-content"></section>
+  </div>
+  <div class="slide hidden author-slide" id="slide-21">
+    <section class="slide-content"><div class="author">
+  <h1 class="name">Lourdes Fernández, Rubén Pulido</h1>
+</div>
+</section>
+  </div>
+
+
+
+  <script type="text/javascript">
+    /**
+ * Returns the current page number of the presentation.
+ */
+function currentPosition() {
+  return parseInt(document.querySelector('.slide:not(.hidden)').id.slice(6));
+}
+
+
+/**
+ * Navigates forward n pages
+ * If n is negative, we will navigate in reverse
+ */
+function navigate(n) {
+  var position = currentPosition();
+  var numSlides = document.getElementsByClassName('slide').length;
+
+  /* Positions are 1-indexed, so we need to add and subtract 1 */
+  var nextPosition = (position - 1 + n) % numSlides + 1;
+
+  /* Normalize nextPosition in-case of a negative modulo result */
+  nextPosition = (nextPosition - 1 + numSlides) % numSlides + 1;
+
+  document.getElementById('slide-' + position).classList.add('hidden');
+  document.getElementById('slide-' + nextPosition).classList.remove('hidden');
+
+  updateProgress();
+  updateURL();
+  updateTabIndex();
+}
+
+
+/**
+ * Updates the current URL to include a hashtag of the current page number.
+ */
+function updateURL() {
+  try {
+    window.history.replaceState({} , null, '#' + currentPosition());
+  } catch (e) {
+    window.location.hash = currentPosition();
+  }
+}
+
+
+/**
+ * Sets the progress indicator.
+ */
+function updateProgress() {
+  var progressBar = document.querySelector('.progress-bar');
+
+  if (progressBar !== null) {
+    var numSlides = document.getElementsByClassName('slide').length;
+    var position = currentPosition() - 1;
+    var percent = (numSlides === 1) ? 100 : 100 * position / (numSlides - 1);
+    progressBar.style.width = percent.toString() + '%';
+  }
+}
+
+
+/**
+ * Removes tabindex property from all links on the current slide, sets
+ * tabindex = -1 for all links on other slides. Prevents slides from appearing
+ * out of control.
+ */
+function updateTabIndex() {
+  var allLinks = document.querySelectorAll('.slide a');
+  var position = currentPosition();
+  var currentPageLinks = document.getElementById('slide-' + position).querySelectorAll('a');
+  var i;
+
+  for (i = 0; i < allLinks.length; i++) {
+    allLinks[i].setAttribute('tabindex', -1);
+  }
+
+  for (i = 0; i < currentPageLinks.length; i++) {
+    currentPageLinks[i].removeAttribute('tabindex');
+  }
+}
+
+/**
+ * Determines whether or not we are currently in full screen mode
+ */
+function isFullScreen() {
+  return document.fullscreenElement ||
+         document.mozFullScreenElement ||
+         document.webkitFullscreenElement ||
+         document.msFullscreenElement;
+}
+
+/**
+ * Toggle fullScreen mode on document element.
+ * Works on chrome (>= 15), firefox (>= 9), ie (>= 11), opera(>= 12.1), safari (>= 5).
+ */
+function toggleFullScreen() {
+  /* Convenient renames */
+  var docElem = document.documentElement;
+  var doc = document;
+
+  docElem.requestFullscreen =
+      docElem.requestFullscreen ||
+      docElem.msRequestFullscreen ||
+      docElem.mozRequestFullScreen ||
+      docElem.webkitRequestFullscreen.bind(docElem, Element.ALLOW_KEYBOARD_INPUT);
+
+  doc.exitFullscreen =
+      doc.exitFullscreen ||
+      doc.msExitFullscreen ||
+      doc.mozCancelFullScreen ||
+      doc.webkitExitFullscreen;
+
+  isFullScreen() ? doc.exitFullscreen() : docElem.requestFullscreen();
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+  // Update the tabindex to prevent weird slide transitioning
+  updateTabIndex();
+
+  // If the location hash specifies a page number, go to it.
+  var page = window.location.hash.slice(1);
+  if (page) {
+    navigate(parseInt(page) - 1);
+  }
+
+  document.onkeydown = function (e) {
+    var kc = e.keyCode;
+
+    // left, down, H, J, backspace, PgUp - BACK
+    // up, right, K, L, space, PgDn - FORWARD
+    // enter - FULLSCREEN
+    if (kc === 37 || kc === 40 || kc === 8 || kc === 72 || kc === 74 || kc === 33) {
+      navigate(-1);
+    } else if (kc === 38 || kc === 39 || kc === 32 || kc === 75 || kc === 76 || kc === 34) {
+      navigate(1);
+    } else if (kc === 13) {
+      toggleFullScreen();
+    }
+  };
+
+  if (document.querySelector('.next') && document.querySelector('.prev')) {
+    document.querySelector('.next').onclick = function (e) {
+      e.preventDefault();
+      navigate(1);
+    };
+
+    document.querySelector('.prev').onclick = function (e) {
+      e.preventDefault();
+      navigate(-1);
+    };
+  }
+});
+
+
+  </script>
+</body>
+</html>
