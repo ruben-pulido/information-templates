@@ -372,13 +372,15 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
   <div class="slide hidden" id="slide-2">
     <section class="slide-content"><h3 id="information-templates">Information Templates</h3>
 <ul>
-<li>Definition</li>
-<li>Purpose and advantages</li>
-<li>Supported entity types</li>
-<li>How to use them</li>
+<li>Definition and Purpose</li>
+<li>Comparison with Display Page Templates</li>
+<li>How to create and use them</li>
+<li>Advantages</li>
 <li>How to add support for a custom entity type</li>
 </ul>
-</section>
+<!-- Speaker: L 1 (0.30,0:21) L +++ --> 
+<!-- (Information Templates are an addition to Liferay 7.4, which makes possible to define the way entities  of any type are displayed in a specific way) -->
+<!-- (We are going to cover what they are, which problem they solve, which entity types have support for  them and how to use them. We'll finish describing how to make a custom entity support information templates) --></section>
   </div>
   <div class="slide hidden" id="slide-3">
     <section class="slide-content"><h3 id="what-are-information-templates">What are Information Templates</h3>
@@ -386,75 +388,238 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
 <li><strong>Freemarker</strong> templates</li>
 <li>Allow <strong>displaying any entity of a certain type</strong> in a specific way</li>
 <li>An entity type can have <strong>multiple</strong> Information Templates</li>
-<li>Has access to same <strong>fields</strong> available for mapping on page editor</li>
+<li>Same <strong>fields</strong> available as for mapping on page editor</li>
 </ul>
-</section>
+<!-- 2 (1:00,1:03) -->
+<!-- Speaker: R 2.1 L ++ -->
+<!-- (Information Templates are Freemarker templates which allow displaying any entity of a certain type in  a specific way) --> 
+<!-- (Multiple Information Templates can be created for an entity type or subtype. For example we can create  different ways of visualizing a document, a category, or any other entity) --> 
+<!-- Speaker: R 2.2 L + -->
+<!-- (An information template has access to the entity being displayed. The same fields we are able to map   through the page editor are available to be used on the information template) -->
+<!-- (There is an exception: Fields based on templates which are available for mapping on the page editor   are not available within Information Templates to prevent infinite loops from happening) -->
+<!-- (Those of you familiar with web content templates and widget templates will find information templates  very similar) --></section>
   </div>
   <div class="slide hidden" id="slide-4">
-    <section class="slide-content"><h3 id="information-template-for-category">Information Template for Category</h3>
+    <section class="slide-content"><h3 id="example-information-template-for-category">Example: Information Template for Category</h3>
 <p><img 
   src="./images/information-template-category.png"
   alt="Information Template Item Type" 
   style="margin-left:auto;margin-right:auto;display:block;max-height:470px;max-width:800px;height:auto;width:auto;" /></p>
-</section>
+<!-- Speaker: L 3 (0:10,0:07) L+++ -->
+<!-- (This is an example of an Information Template displaying an entity of type Category) --></section>
   </div>
   <div class="slide hidden" id="slide-5">
-    <section class="slide-content"><h3 id="information-template-used-on-page">Information Template used on Page</h3>
+    <section class="slide-content"><h3 id="example-information-template-for-category-used-on-page">Example: Information Template for Category used on Page</h3>
 <p><img 
   src="./images/information-template-category-used.png"
   alt="Information Template Item Type" 
   style="margin-left:auto;margin-right:auto;display:block;max-height:470px;max-width:800px;height:auto;width:auto;" /></p>
+<!-- Speaker: L 4 (0:15,0:14) L+++-->
+<p>&lt;!-- (And this is an example of a Page displaying a specific category by using the previously shown Information Template. We will show in more detail how to create and use Information Templates later on)</p>
 </section>
   </div>
   <div class="slide hidden" id="slide-6">
     <section class="slide-content"><h3 id="what-is-their-purpose">What is their purpose</h3>
-<p><strong>Centralize</strong> the way of <strong>visualizing entities of a certain type</strong> in a <strong>reusable</strong> and <strong>easy to modify</strong> manner</p>
-</section>
-  </div>
-  <div class="slide hidden" id="slide-7">
-    <section class="slide-content"><h3 id="display-page-template-vs-information-template">Display Page Template vs Information Template</h3>
-</section>
-  </div>
-  <div class="slide hidden" id="slide-8">
-    <section class="slide-content"><h3 id="advantages-of-information-templates">Advantages of Information Templates</h3>
 <ul>
-<li><strong>Ease of use</strong>:<br><strong>Selecting a template</strong> (instead of mapping multiple elements in a fragment to the fields of an entity)<br>→ <strong>minimizes errors</strong></li>
-<li><strong>Ease of change</strong>:<br>Performing <strong>changes only once</strong> (in the Information Template instead of across pages)<br>→ <strong>saves time and effort</strong></li>
+<li>Support <strong>templating all entity types</strong><br>(including Objects and custom entity types)</li>
 </ul>
-</section>
-  </div>
-  <div class="slide hidden" id="slide-9">
-    <section class="slide-content"><h3 id="entities-supporting-information-templates-out-of-the-box">Entities supporting Information Templates Out of the Box</h3>
 <p><img 
   src="./images/information-template-item-type.png"
   alt="Information Template Item Type" 
+  style="margin-left:auto;margin-right:auto;display:block;max-height:250px;max-width:800px;height:auto;width:auto;" /></p>
+<ul>
+<li><strong>Centralize</strong> the way of <strong>visualizing entities</strong> in a <strong>reusable</strong> and <strong>easy to modify</strong> manner</li>
+</ul>
+<!-- Speaker: R 5 (0:30,0:29) L+++ -->
+<!-- (The purpose of having Information Templates is to provide templating support for all entity types) -->
+<!-- (This implies having a centralized way to visualize entities of a certain type, so that it can be  reused and easily modified. -->
+<!-- (Before Information Templates, this could only be done for Web Content) -->
+<!-- (Out of the box support for Information Templates is available for all the following types of entities: Web Content, Documents, Blogs, Categories, Objects and Assets) --></section>
+  </div>
+  <div class="slide hidden" id="slide-7">
+    <section class="slide-content"><h3 id="comparison-display-page-templates">Comparison: Display Page Templates</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"></th>
+<th style="text-align:center">Display Page Templates</th>
+<th style="text-align:center">Information Templates</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>Supports Assets</strong></td>
+<td style="text-align:center">❌</td>
+<td style="text-align:center">✅</td>
+</tr>
+</tbody>
+</table>
+<p><img 
+  src="./images/add-display-page-template-vs-information-template.png" 
+  alt="DPTs vs Information Templates" 
   style="margin-left:auto;margin-right:auto;display:block;max-height:470px;max-width:800px;height:auto;width:auto;" /></p>
+<!-- Speaker: L 6 (0:30,0:28) L+++ -->
+<!-- (Before diving further into Information Templates we'd like to point out the differences between Display Page Templates and Information Templates, so we have a better understanding of the latter ones) --> 
+<!-- (Like a Display Page Template, an Information Template is associated with a certain entity type) -->
+<!-- (However, Assets don't have support for Display Page Templates, but they do have support for Information Templates) --></section>
+  </div>
+  <div class="slide hidden" id="slide-8">
+    <section class="slide-content"><table>
+<thead>
+<tr>
+<th style="text-align:left"></th>
+<th style="text-align:center">Display Page Templates</th>
+<th style="text-align:center">Information Templates</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>Editing Mode</strong></td>
+<td style="text-align:center">Visual 👁️</td>
+<td style="text-align:center">Freemarker &lt;#&gt;</td>
+</tr>
+</tbody>
+</table>
+<p><img 
+  src="./images/dpts-vs-information-templates-1.png" 
+  alt="DPTs vs Information Templates" 
+  style="margin-left:auto;margin-right:auto;display:block;max-height:470px;max-width:800px;height:auto;width:auto;" /></p>
+<!-- Speaker: L 7 (0:10,0:12) L+++ -->
+<!-- (Display Page Templates can be edited visually through the Page Editor, whereas Information Templates are edited using the Freemarker editor, with autocomplete capabilities) --></section>
+  </div>
+  <div class="slide hidden" id="slide-9">
+    <section class="slide-content"><table>
+<thead>
+<tr>
+<th style="text-align:left"></th>
+<th style="text-align:center">Display Page Templates</th>
+<th style="text-align:center">Information Templates</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>Page</strong><br></td>
+<td style="text-align:center">Whole</td>
+<td style="text-align:center">Portion</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Dedicated URL</strong><br></td>
+<td style="text-align:center">✅</td>
+<td style="text-align:center">❌</td>
+</tr>
+</tbody>
+</table>
+<p><img 
+  src="./images/dpts-vs-information-templates-3.png" 
+  alt="DPTs vs Information Templates" 
+  style="margin-left:auto;margin-right:auto;display:block;max-height:470px;max-width:800px;height:auto;width:auto;" /></p>
+<!-- Speaker: R 8 (0:30,0:27) L+ used, associated -->
 </section>
   </div>
   <div class="slide hidden" id="slide-10">
-    <section class="slide-content"><h3 id="how-to-create-an-information-template">How to create an Information Template</h3>
-</section>
+    <section class="slide-content"><h3 id="create-information-templates">Create Information Templates</h3>
+<p><img 
+  src="./gifs/information-templates-creation.gif" 
+  alt="Page With Information Template" 
+  style="margin-left:auto;margin-right:auto;display:block;max-height:470px;max-width:800px;height:auto;width:auto;" /></p>
+<!-- Speaker: L 9 (0:25,0:24) L+++ -->
+<!-- (We are now going to show how to create Information Templates) -->
+<!-- (From the administration view, under Design, we select Templates) -->
+<!-- (All available Information Templates are listed. We can create a new one and select the Item Type. In this case Blogs Entry) -->
+<!-- (We can quickly create a template by importing an existing file with the Freemarker Code, as we do here  for our Blog Entry Card template) -->
+<!-- Speaker: R 10 (0:12,0:12) L++ select -->
+<!-- (We are now going to create a second template, Category Card. We select Category as type. If we had an entity with subtype we would also select the item subtype, as for example in Documents) -->
+<!-- Speaker: R 11 (0:13,0:13) L++ directly -->
+<!-- (We can also create an information template by typing directly the Freemarker code into the editor and benefiting from the autocompletion capabilities, as we do here for our Category Search Label template) -->
+<!-- Speaker: L 12 (0:10,0:09) L+++ -->
+<!-- (Finally, we can also create a template by copying an existing one and modifying it, as shown here for our Category Search URL template) --></section>
   </div>
   <div class="slide hidden" id="slide-11">
-    <section class="slide-content"><h3 id="how-to-apply-an-information-template-in-the-page-editor">How to apply an Information Template in the Page Editor</h3>
+    <section class="slide-content"><h3 id="use-information-templates">Use Information Templates</h3>
 <ul>
-<li><strong>Mapping</strong> it to a <strong>text or rich text editable element of a fragment</strong></li>
-<li>Through <strong>Content Display Fragment</strong></li>
-<li>Within a <strong>Collection Display Fragment</strong></li>
-<li>Within a <strong>Display Page Template</strong></li>
+<li>Within a <strong>Content Display Fragment</strong>, selecting the template
+<img 
+src="./images/content-display-fragment.png" 
+alt="Content Display Fragment" 
+style="margin-left:auto;margin-right:auto;display:block;max-height:160px;max-width:800px;height:auto;width:auto;" /></li>
+<li>Within any fragment <strong>mapping</strong> a <strong>text or rich text editable element</strong> to the template
+<img 
+src="./images/fragment-with-editable-element.png" 
+alt="Fragment with editable element" 
+style="margin-left:auto;margin-right:auto;display:block;max-height:160px;max-width:800px;height:auto;width:auto;" /></li>
 </ul>
+<!-- Speaker: R 13 (0:25,0:26) L+++ available -->
 </section>
   </div>
   <div class="slide hidden" id="slide-12">
-    <section class="slide-content"><h3 id="what-advantage-do-information-templates-offer-revisit-2-min-">What advantage do Information Templates offer (revisit) (2 min)</h3>
+    <section class="slide-content"><h3 id="use-information-templates">Use Information Templates</h3>
+<p><img 
+  src="./gifs/use-information-templates.gif" 
+  alt="Page With Information Template" 
+  style="margin-left:auto;margin-right:auto;display:block;max-height:470px;max-width:800px;height:auto;width:auto;" /></p>
+<!-- Speaker: L 14 (0:15,0:14) L+++ -->
+<!-- Speaker: R 15 (0:21,0:21) L++ "for" instead of "of" -->
+<!-- Speaker: R 16 (0:08,0:08) L+++ -->
+<!-- Speaker: R 17 (0:09,0:09) L++ show, configured -->
+<!-- Speaker: L 18 (0:05,0:05) L+++ -->
+<!-- Speaker: L 19 (0:10,0:09) L+++ -->
+<!-- Speaker: L 20 (0:05,0:05) L+++ -->
+<!-- Speaker: L 21 (0:10,0:09) L+++ -->
+<!-- Speaker: L 22 (0:10,0:10) L+++ -->
 </section>
   </div>
   <div class="slide hidden" id="slide-13">
-    <section class="slide-content"><h3 id="how-can-i-make-my-custom-entity-support-information-templates">How can I make my custom entity support Information Templates</h3>
-<p>1) Implement <strong>InfoItemDetailsProvider</strong><br>2) Implement <strong>InfoItemCapabilitiesProvider</strong><br>3) Add InfoFieldSet to InfoForm in <strong>InfoItemFormProvider</strong><br>4) Add InfoFieldValue to InfoItemFieldValues in <strong>InfoItemFieldValuesProvider</strong></p>
+    <section class="slide-content"><h3 id="recap-use-of-information-templates">Recap: Use of Information Templates</h3>
+<ul>
+<li>To display <strong>entities of different types</strong></li>
+<li><strong>Multiple</strong> for <strong>one entity type</strong></li>
+<li>Used in <strong>Content Display</strong> and <strong>text or rich text editable elements</strong> of any fragment</li>
+</ul>
+<!-- Speaker: R 23 (0:17,0:17) L+++ -->
 </section>
   </div>
   <div class="slide hidden" id="slide-14">
+    <section class="slide-content"><h3 id="advantages-of-information-templates">Advantages of Information Templates</h3>
+<ul>
+<li>🔧 <strong>Ease of use</strong>:<br><strong>Selecting a template</strong> (instead of mapping multiple elements in a fragment to the fields of an entity)<br>→ <strong>minimizes errors</strong></li>
+<li>🖌️️ <strong>Ease of change</strong>:<br>Performing <strong>changes only once</strong> (in the Information Template instead of across all pages)<br>→ <strong>saves time and effort</strong></li>
+</ul>
+<!-- Speaker: L 24 (0:49,0:49) -->
+<!-- 24.1 L+++ -->
+<!-- (Information Templates offer multiple advantages) -->
+<!-- (We have just seen that are really easy to use. They allow page creators to visualize an entity by just selecting a template, instead of using a fragment and mapping multiple elements to the fields of an entity. Fewer manual steps imply a lower chance of making mistakes) -->
+<!-- Speaker: R 24.2 L+ changes, my fault, I changed a bit the sentence "needs to be modified" so it's correct -->
+<!-- (They also allow performing changes in an easy way. If the visualization of an entity needs to be enriched with additional fields or an existing one needs to be modified, the change can be performed only once, in the Information Template, instead of having to update each page where a fragment has been used. This way changes can be performed faster and with less effort) -->
+<!-- Let's see an example and compare both ways --></section>
+  </div>
+  <div class="slide hidden  " id="slide-15">
+    <section class="slide-content"><h3 id="advantages-of-information-templates">Advantages of Information Templates</h3>
+<p><img 
+  src="./gifs/fragments-vs-information-templates.gif" 
+  alt="Page With Information Template" 
+  style="margin-left:auto;margin-right:auto;display:block;max-height:470px;max-width:800px;height:auto;width:auto;" /></p>
+<!-- Speaker: R 25 (0:19,0:18) L++ called -->
+<!-- Speaker: R 26 (0:11,0:10) -->
+<!-- 26.1 L++ instances, editable -->
+<!-- Speaker: R26.2 L++ equivalent -->
+<!-- Speaker: R 27 (0:14,0:14) L+++ -->
+<!-- Speaker: R 28 (0:21,0:20) L++ page, configured -->
+<!-- 29 (0:20,0:20) -->
+<!-- Speaker: R 29.1 L+++ -->
+<!-- Speaker: L 29.2 L+++++++++++++++++++++++ -->
+<!-- Speaker: R 29.3 L+++ -->
+<!-- Speaker: R 29.4 L+++ -->
+<!-- Speaker: L 30 (0:18,0:18) L+++ -->
+</section>
+  </div>
+  <div class="slide hidden" id="slide-16">
+    <section class="slide-content"><h3 id="how-can-i-make-my-custom-entity-support-information-templates">How can I make my custom entity support Information Templates</h3>
+<p>1) Implement <strong>InfoItemDetailsProvider</strong><br>2) Add InfoFieldSet to InfoForm in <strong>InfoItemFormProvider</strong><br>3) Add InfoFieldValue to InfoItemFieldValues in <strong>InfoItemFieldValuesProvider</strong><br>4) Implement <strong>InfoItemCapabilitiesProvider</strong></p>
+<p><a href="https://github.com/ruben-pulido/player/pull/1">https://github.com/ruben-pulido/player/pull/1</a></p>
+<!-- Speaker: L 31 (0:11,0:11) L+++ -->
+</section>
+  </div>
+  <div class="slide hidden" id="slide-17">
     <section class="slide-content"><h3 id="1-implement-infoitemdetailsprovider">1) Implement InfoItemDetailsProvider</h3>
 <pre><code class="lang-java"><span class="hljs-meta">@Component</span>(immediate = <span class="hljs-keyword">true</span>, service = InfoItemDetailsProvider.class)
 <span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyEntityInfoItemDetailsProvider</span>
@@ -466,34 +631,19 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
     }
 
     <span class="hljs-meta">@Override</span>
-    <span class="hljs-function"><span class="hljs-keyword">public</span> InfoItemDetails <span class="hljs-title">getInfoItemDetails</span><span class="hljs-params">(MyEntity player)</span> </span>{
+    <span class="hljs-function"><span class="hljs-keyword">public</span> InfoItemDetails <span class="hljs-title">getInfoItemDetails</span><span class="hljs-params">(MyEntity myEntity)</span> </span>{
         <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> InfoItemDetails(
             getInfoItemClassDetails(),
             <span class="hljs-keyword">new</span> InfoItemReference(MyEntity.class.getName(), myEntity.getId()));
     }
 }
 </code></pre>
+<!-- Speaker: L (0:12,0:12) L+++ -->
+<!-- 32 (The first step is to create an implementation of InfoItemDetailsProvider for our custom entity if we have not done it already for adding support for Display Page Templates) --> 
 </section>
   </div>
-  <div class="slide hidden" id="slide-15">
-    <section class="slide-content"><h3 id="2-implement-infoitemcapabilitiesprovider">2) Implement InfoItemCapabilitiesProvider</h3>
-<pre><code class="lang-java"><span class="hljs-meta">@Component</span>(service = InfoItemCapabilitiesProvider.class)
-<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyEntityInfoItemCapabilitiesProvider</span>
-    <span class="hljs-keyword">implements</span> <span class="hljs-title">InfoItemCapabilitiesProvider</span>&lt;<span class="hljs-title">Player</span>&gt; </span>{
-
-    <span class="hljs-meta">@Override</span>
-    <span class="hljs-function"><span class="hljs-keyword">public</span> List&lt;InfoItemCapability&gt; <span class="hljs-title">getInfoItemCapabilities</span><span class="hljs-params">()</span> </span>{
-        <span class="hljs-keyword">return</span> ListUtil.fromArray(_templatePageInfoItemCapability);
-    }
-
-    <span class="hljs-meta">@Reference</span>
-    <span class="hljs-keyword">private</span> TemplateInfoItemCapability _templatePageInfoItemCapability;
-}
-</code></pre>
-</section>
-  </div>
-  <div class="slide hidden" id="slide-16">
-    <section class="slide-content"><h3 id="3-add-infofieldset-to-infoform">3) Add InfoFieldSet to InfoForm</h3>
+  <div class="slide hidden" id="slide-18">
+    <section class="slide-content"><h3 id="2-add-infofieldset-to-infoform">2) Add InfoFieldSet to InfoForm</h3>
 <pre><code class="lang-java"><span class="hljs-meta">@Component</span>(immediate = <span class="hljs-keyword">true</span>, service = InfoItemFormProvider.class)
 <span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyEntityInfoItemFormProvider</span>
     <span class="hljs-keyword">implements</span> <span class="hljs-title">InfoItemFormProvider</span>&lt;<span class="hljs-title">MyEntity</span>&gt; </span>{
@@ -504,7 +654,7 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
         ).infoFieldSetEntry(
             InfoFieldSet.builder(
             ).infoFieldSetEntry(
-                <span class="hljs-comment">// ...</span>
+                <span class="hljs-comment">// ... other fields available for mapping and templates</span>
             ).infoFieldSetEntry(
                 _templateInfoItemFieldSetProvider.getInfoFieldSet(
                     MyEntity.class.getName())
@@ -521,10 +671,12 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
     <span class="hljs-keyword">private</span> TemplateInfoItemFieldSetProvider _templateInfoItemFieldSetProvider;
 }
 </code></pre>
+<!-- Speaker: L 33 (0:22,0:22)  L+++ custom -->
+<!-- (The second step is to add an InfoFieldSet entry to the list of InfoFieldSets returned by the implementation of the InfoItemFormProvider for our custom entity. In order to obtain the InfoFieldSet for our entity we use TemplateInfoItemFieldSetProvider, which returns an InfoField for every Information Template of our custom entity) --> 
 </section>
   </div>
-  <div class="slide hidden" id="slide-17">
-    <section class="slide-content"><h3 id="4-add-infofieldvalue-to-infoitemfieldvalues">4) Add InfoFieldValue to InfoItemFieldValues</h3>
+  <div class="slide hidden" id="slide-19">
+    <section class="slide-content"><h3 id="3-add-infofieldvalue-to-infoitemfieldvalues">3) Add InfoFieldValue to InfoItemFieldValues</h3>
 <pre><code class="lang-java"><span class="hljs-meta">@Component</span>(immediate = <span class="hljs-keyword">true</span>, service = InfoItemFieldValuesProvider.class)
 <span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyEntityInfoItemFieldValuesProvider</span>
     <span class="hljs-keyword">implements</span> <span class="hljs-title">InfoItemFieldValuesProvider</span>&lt;<span class="hljs-title">MyEntity</span>&gt; </span>{
@@ -549,31 +701,89 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
     <span class="hljs-keyword">private</span> TemplateInfoItemFieldSetProvider _templateInfoItemFieldSetProvider;
 }
 </code></pre>
+<!-- Speaker: R 34 (0:24,0:24) L+++ created -->
+<!-- (The third step is to add an InfoFieldValue entry to the list of InfoFieldValues returned by the implementation of the InfoItemFieldValuesProvider for our custom entity. In order to obtain the list of InfoFieldValues for our entity we can use TemplateInfoItemFieldSetProvider, which will return an InfoFieldValue for every Information Template created for our custom entity) --> 
 </section>
   </div>
-  <div class="slide hidden  " id="slide-18">
+  <div class="slide hidden" id="slide-20">
+    <section class="slide-content"><h3 id="4-implement-infoitemcapabilitiesprovider">4) Implement InfoItemCapabilitiesProvider</h3>
+<pre><code class="lang-java"><span class="hljs-meta">@Component</span>(service = InfoItemCapabilitiesProvider.class)
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyEntityInfoItemCapabilitiesProvider</span>
+    <span class="hljs-keyword">implements</span> <span class="hljs-title">InfoItemCapabilitiesProvider</span>&lt;<span class="hljs-title">MyEntity</span>&gt; </span>{
+
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> List&lt;InfoItemCapability&gt; <span class="hljs-title">getInfoItemCapabilities</span><span class="hljs-params">()</span> </span>{
+        <span class="hljs-keyword">return</span> ListUtil.fromArray(_templatePageInfoItemCapability);
+    }
+
+    <span class="hljs-meta">@Reference</span>
+    <span class="hljs-keyword">private</span> TemplateInfoItemCapability _templatePageInfoItemCapability;
+}
+</code></pre>
+<!-- Speaker: R 35 (0:08,0:08) -->
+<!-- (The fourth and final step is to create an implementation of InfoItemCapabilitiesProvider for our custom entity) --> 
+</section>
+  </div>
+  <div class="slide hidden" id="slide-21">
+    <section class="slide-content"><h3 id="information-template-for-custom-entity">Information Template for Custom Entity</h3>
+<p><img 
+  src="./images/player-information-template-1.png" 
+  alt="Custom Entity Information Template" 
+  style="margin-left:auto;margin-right:auto;display:block;max-height:470px;max-width:800px;height:auto;width:auto;" /></p>
+<!-- Speaker: L 36 (0:07,0:07) L+++ -->
+</section>
+  </div>
+  <div class="slide hidden" id="slide-22">
+    <section class="slide-content"><h3 id="information-template-for-custom-entity">Information Template for Custom Entity</h3>
+<p><img 
+  src="./images/player-information-template-2.png" 
+  alt="Custom Entity Information Template" 
+  style="margin-left:auto;margin-right:auto;display:block;max-height:470px;max-width:800px;height:auto;width:auto;" /></p>
+<!-- Speaker: R 37 (0:07,0:07) L fields, available -->
+</section>
+  </div>
+  <div class="slide hidden" id="slide-23">
+    <section class="slide-content"><h3 id="information-template-for-custom-entity">Information Template for Custom Entity</h3>
+<p><img 
+  src="./images/player-information-template-3.png" 
+  alt="Custom Entity Information Template" 
+  style="margin-left:auto;margin-right:auto;display:block;max-height:470px;max-width:800px;height:auto;width:auto;" /></p>
+<!-- Speaker: L 38 (0:07,0:07) -->
+</section>
+  </div>
+  <div class="slide hidden  " id="slide-24">
     <section class="slide-content"><h3 id="summary-information-templates">Summary: Information Templates</h3>
 <ul>
 <li>Allow <strong>displaying any entity of a certain type</strong> in a specific way</li>
 <li>Offer a <strong>centralized</strong> way to visualize entities, so it can be <strong>reused</strong> and <strong>easily modified</strong>, reducing time and effort to apply changes</li>
 <li>Available <strong>out of the box</strong> for multiple entity types. Support can be added for <strong>custom entities</strong> </li>
 </ul>
-</section>
+<!-- Speaker: R 39 (0:30,0:29) -->
+<!-- (To wrap up) -->
+<!-- (Information Templates are a new addition to 7.4 which allow defining ways to display any entity of a certain type) --> 
+<!-- (They have the advantage of offering a centralized way to visualize entities. They can be reused and easily modified, reducing the time and effort needed for applying changes) --> 
+<!-- (They are available out of the box for multiple entity types and support for custom entities can be added) --></section>
   </div>
-  <div class="slide hidden" id="slide-19">
+  <div class="slide hidden" id="slide-25">
     <section class="slide-content"><h3 id="thank-you-">Thank you!</h3>
-<p><img 
-  src="./images/thank-you.png" 
-  alt="Thank you!" 
-  style="margin-left:auto;margin-right:auto;display:block;max-height:470px;max-width:800px;height:auto;width:auto;" /></p>
+<!-- Speaker: R 40 (0:01,0:01) -->
+<p><img
+src="./images/lourdes-and-ruben-github.png"
+alt="Lourdes & Rubén"
+style="margin-left:auto;margin-right:auto;display:block;max-height:470px;max-width:800px;height:auto;width:auto;" /></p>
+<!-- Speaker: L 40.1 -->
+<!-- Speaker: R 40.2 -->
+<!-- 40.3 -->
 </section>
   </div>
-  <div class="slide hidden" id="slide-20">
-    <section class="slide-content"></section>
+  <div class="slide hidden" id="slide-26">
+    <section class="slide-content"><h3 id="slides">Slides</h3>
+<p><a href="https://ruben-pulido.github.io/information-templates/index.html">https://ruben-pulido.github.io/information-templates/index.html</a></p>
+</section>
   </div>
-  <div class="slide hidden author-slide" id="slide-21">
+  <div class="slide hidden author-slide" id="slide-27">
     <section class="slide-content"><div class="author">
-  <h1 class="name">Lourdes Fernández, Rubén Pulido</h1>
+  <h1 class="name">Lourdes Fernández Besada, Rubén Pulido de los Reyes</h1>
 </div>
 </section>
   </div>
